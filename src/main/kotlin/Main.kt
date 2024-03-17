@@ -16,63 +16,55 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-
-/*  // val out = MatrixObject.getMatrix()
-       val matrix = remember { mutableStateOf(MatrixObject.getMatrix()) }
-       matrix.value
-       matrixItem(onButton = { button -> matrix.value = MatrixObject.OutputMatrix(matrix) })
-       //MatrixObject.OutputMatrix(matrix = MatrixObject.getMatrix())*/
-/*fun App() {
-    MaterialTheme {
-        Column(modifier = Modifier.fillMaxSize().padding(bottom = 35.dp), verticalArrangement = Arrangement.Top) {
-            OutputMatrix(MatrixObject.getMatrix())
-        }
-        Column(modifier = Modifier.fillMaxSize().padding(bottom = 35.dp), verticalArrangement = Arrangement.Bottom) {
-            Button(onClick = {
-
-            }) {
-                Text(text = "нажми")
-            }
-        }
-    }
-}*/
 @Composable
 @Preview
-fun App() {
+fun app() {
 
     MaterialTheme {
         val initialState = MatrixFactory.create()
         val matrix = remember { mutableStateOf(initialState) }
-        Column {
-            OutputMatrix(matrix.value)
+        Column(modifier = Modifier.padding(bottom = 5.dp), verticalArrangement = Arrangement.Bottom) {
+            outputMatrix(matrix.value)
             Button(
                 onClick = {matrix.value = MatrixFactory.create()}
             ){
                 Text(text = "нажми")
             }
         }
+
+       // JonsonAlgorithm().FirstStep(matrix.value)
+       // JonsonAlgorithm().secondStep(matrix.value)
+       // JonsonAlgorithm().fourStep(matrix.value)
+
+        //PetrovAlgorithm().FirstStep(matrix.value)
+        //PetrovAlgorithm().SecondStep(matrix.value)
+        PetrovAlgorithm().SumMatrix(matrix.value)
     }
 }
 @Composable
-fun OutputMatrix(matrix: Array<IntArray>) {
-    val countHeight = matrix.size
-    val countWidth = matrix[0].size
+fun outputMatrix(matrix: Array<IntArray>) {
+    val countMachine = matrix.size
+    val countDetails = matrix[0].size
     Column {
-        for (i in 0 until countHeight) {
+  /*    Text(text = "Станки по вертикали")
+        Text(text = "\\")
+        Text(text = "Детали по горизонтали")*/
+        for (i in 0 until countMachine) {
             Row(
                 modifier = Modifier.padding(start = 5.dp),
                 horizontalArrangement = Arrangement.Start
             ) {
-                for (j in 0 until countWidth) {
+                for (j in 0 until countDetails) {
                     Text(text = "${matrix[i][j]}|")
                 }
             }
         }
     }
+
 }
 
 fun main() = application {
     Window(onCloseRequest = ::exitApplication) {
-        App()
+        app()
     }
 }

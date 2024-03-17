@@ -1,16 +1,14 @@
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.Matrix
 
-object MatrixFactory{
-   private fun CreateMatrix(heightSize: Int, widthSize: Int): Array<IntArray>{
-       val matrix: Array<IntArray> = Array(heightSize){IntArray(widthSize){0} }
-       val countHeight = matrix.size
-       val countWidth = matrix[0].size
-           for (i in 0 until countHeight) {
-               for (j in 0 until countWidth) {
+
+object MatrixFactory:Cloneable{
+   private fun CreateMatrix(machineSize: Int, detailsSize: Int): Array<IntArray>{
+       val matrix: Array<IntArray> = Array(machineSize){IntArray(detailsSize){0} }
+       val countMachine = matrix.size
+       val countDetails = matrix[0].size
+           for (i in 0 until countMachine) {
+               for (j in 0 until countDetails) {
                    matrix[i][j] = (Math.random() * 10).toInt()
                }
            }
@@ -18,22 +16,21 @@ object MatrixFactory{
    }
 
     fun create(): Array<IntArray> {
-        return CreateMatrix(getHeightSize(), getWidthSize())
+        return CreateMatrix(getMachineSize(), getDetailsSize())
     }
-    fun getHeightSize(): Int{
+    fun getMachineSize(): Int{
+        val size = (Math.random() * 10).toInt()
+        return if (size < 0)
+            1
+        else
+            size
+    }
+    fun getDetailsSize(): Int{
         val size = (Math.random() * 10).toInt()
         return if (size == 0)
             1
         else
             size
     }
-    fun getWidthSize(): Int{
-        val size = (Math.random() * 10).toInt()
-        return if (size == 0)
-            1
-        else
-            size
-    }
-
 
 }
