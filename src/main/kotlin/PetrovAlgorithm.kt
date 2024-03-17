@@ -7,9 +7,6 @@ import androidx.compose.ui.unit.sp
 
 
 class PetrovAlgorithm {
-    fun copyArray(source: Array<IntArray>): Array<IntArray> {
-        return source.copyOfRange(0, source.size)
-    }
 
     @Composable
     fun SumMatrix(matrix: Array<IntArray>) {
@@ -49,7 +46,6 @@ class PetrovAlgorithm {
             for (j in 1 until matrixCopy[i].size){
                 matrixCopy[i][j] = matrixCopy[i][j] + maxOf(matrixCopy[i - 1][j], matrixCopy[i][j - 1])
             }
-
     }
     @Composable
     fun FirstStep(matrix: Array<IntArray>): MutableList<Int> {
